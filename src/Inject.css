@@ -1,0 +1,93 @@
+
+#zhaohu .mask {
+  display: block;
+  position: fixed;
+  z-index: 10000;
+  background-color: rgba(85, 85, 85, 0.8);
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+#zhaohu .mask-enter {
+  background-color: rgba(85, 85, 85, 0);
+}
+
+#zhaohu .mask-active-enter {
+  background-color: rgba(85, 85, 85, 0.8);
+  transition: background-color .2s ease-in;
+}
+
+#zhaohu .mask-done-enter {
+  background-color: rgba(85, 85, 85, 0.8);
+}
+
+#zhaohu .mask-exit {
+  background-color: rgba(85, 85, 85, 0.8);
+}
+
+#zhaohu .mask-active-exit {
+  background-color: rgba(85, 85, 85, 0);
+  transition: background-color .2s ease-out;
+}
+
+#zhaohu .mask-done-exit {
+  display: none;
+}
+
+#zhaohu .frame {
+  display: none;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  transition: transform .2s ease-in;
+  height: 100%;
+  width: 768px;
+  z-index: 10001;
+}
+
+#zhaohu .frame-enter {
+  display: block;
+  transform: translateX(768px);
+}
+
+#zhaohu .frame-active-enter {
+  display: block;
+  transition: transform .2s ease-in;
+  transform: translateX(0px);
+}
+
+#zhaohu .frame-done-enter {
+  display: block;
+  transform: none;
+}
+
+#zhaohu .frame-exit {
+  display: block;
+  transform: translateX(0px);
+}
+
+#zhaohu .frame-active-exit {
+  display: block;
+  transition: transform .2s ease-out;
+  transform: translateX(768px);
+}
+
+#zhaohu .frame-done-exit {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #zhaohu .frame {
+    width: 100%;
+  }
+  
+  #zhaohu .frame-enter {
+    transform: translateX(100%);
+  }
+
+  #zhaohu .frame-active-exit {
+    transform: translateX(100%);
+  } 
+}
