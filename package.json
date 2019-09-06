@@ -2,6 +2,7 @@
   "name": "zhaohu-sdk-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://www.mesoor.com/agora",
   "dependencies": {
     "@babel/core": "7.5.5",
     "@svgr/webpack": "4.3.2",
@@ -70,7 +71,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "publish": "bash -c \"qshell dircache build cache.txt && qshell qupload2 --bucket homepage --src-dir build/ --file-list cache.txt --key-prefix agora/ --overwrite true --check-exists true --check-hash true --log-stdout=true && qshell cdnrefresh <(echo https://www.mesoor.com/agora/sdk.js$'\\n'https://www.mesoor.com/agora/index.html)\""
   },
   "eslintConfig": {
     "extends": "react-app"
