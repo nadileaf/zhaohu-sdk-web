@@ -107,11 +107,11 @@
     -->
     <script>
       setTimeout(() => {
-        zhaohu.init(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUxNzYiLCJmcm9tIjoidGVzdCIsImlhdCI6MTU2MDgyNTI3NywiZXhwIjoxNjIzODk3MjY1fQ.fw77bPa-Bh3sqW9YpopwEVRXIXByioSxh-elUXca4JI",
-          "test",
-          "mesoor"
-        )
+        zhaohu.init({
+          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUxNzYiLCJmcm9tIjoidGVzdCIsImlhdCI6MTU2MDgyNTI3NywiZXhwIjoxNjIzODk3MjY1fQ.fw77bPa-Bh3sqW9YpopwEVRXIXByioSxh-elUXca4JI",
+          from: "test",
+          basicInfoRequest() { Promise.resolve({ "name": "李狗蛋" }) }
+        })
       }, 200)
     </script>
   </body>

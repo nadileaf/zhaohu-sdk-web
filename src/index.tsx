@@ -15,9 +15,10 @@ interface InitParam {
 
 class Zhaohu {
   init (param: InitParam) {
-    notNull(param.token, 'token')
-    notNull(param.from, 'from')
-    notNull(param.basicInfoRequest, 'basicInfoRequest')
+    mustObject(param, 'param')
+    notNull(param.token, 'param.token')
+    notNull(param.from, 'param.from')
+    notNull(param.basicInfoRequest, 'param.basicInfoRequest')
 
     const container = document.createElement('div')
     container.id = "zhaohu"
@@ -31,9 +32,13 @@ class Zhaohu {
   }
 }
 
-function notNull (value: any, name?: string) {
-  if (value === null || value === undefined) throw new Error((name || "") + " cannot be null")
+function notNull(value: any, name?: string) {
+  if (value === undefined ||value === null) throw new Error((name || "") + " cannot be null!")
 }
 
+function mustObject(value: any, name?: string) {
+  if (value === null || value === undefined) throw new Error((name || "") + " cannot be null!")
+  if (typeof value !== "object") throw new Error((name || "") + " must be an object!")
+}
 
 window.zhaohu = new Zhaohu()
