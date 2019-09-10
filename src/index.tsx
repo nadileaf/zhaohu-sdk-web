@@ -9,6 +9,7 @@ declare global {
 interface InitParam {
   token: string
   from: string
+  version?: string
   env?: string
   basicInfoRequest: () => Promise<any>
 }
@@ -20,15 +21,45 @@ class Zhaohu {
     notNull(param.from, 'param.from')
     notNull(param.basicInfoRequest, 'param.basicInfoRequest')
 
+    const env = param.env || 'mesoor'
+
     const container = document.createElement('div')
     container.id = "zhaohu"
     document.body.appendChild(container)
 
-    ReactDOM.render(<Inject
+    const stateChannel = new BroadcastChannel('state_channel');
+
+    window.addEventListener('message', function (event: MessageEvent) {
+      if (event.origin !== `https://agora.${env}.com`) return
+      const port = event.ports[0]
+      port.onmessage = async function (event: MessageEvent) {
+        switch (event.data.type) {
+          case 'USER_DENIED':
+            stateChannel.postMessage("close")
+            break
+          case 'USER_INFO_REQUEST':
+            const resume = await param.basicInfoRequest()
+            port.postMessage({ type: 'USER_INFO_REPLY', data: resume })
+            break
+          case 'USER_INFO_ERROR':
+            console.error(event.data);
+            break
+          default:
+            console.warn("???", event.data)
+            break
+        }
+      }
+      port.postMessage({ type: 'ACK' })
+    })
+
+    const injectComponent = <Inject
       token={param.token}
       from={param.from}
-      env={param.env}
-      />, container);
+      channel={stateChannel}
+      version={param.version}
+      env={env}
+    />
+    ReactDOM.render(injectComponent, container);
   }
 }
 
