@@ -65,7 +65,8 @@ export default class Zhaohu {
   remove() {
     const container = document.getElementById('zhaohu')
     if (container) {
-      ReactDOM.unmountComponentAtNode(container);
+      ReactDOM.unmountComponentAtNode(container)
+      container.remove()
     }
   }
 }
