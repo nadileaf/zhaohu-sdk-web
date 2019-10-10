@@ -15,6 +15,7 @@ interface InitParam {
   from: string
   version?: string
   env?: string
+  hash?: string
   basicInfoRequest: () => Promise<any>
 }
 
@@ -29,6 +30,7 @@ export default class Zhaohu {
 
     const container = document.createElement('div')
     container.id = "zhaohu"
+    if (param.hash) container.className = param.hash
     document.body.appendChild(container)
 
     const stateChannel = new BroadcastChannel('state_channel');
