@@ -1,16 +1,19 @@
 import React, { useState, ChangeEvent, FormEvent } from "react"
 import ReactDOM from "react-dom"
-import Zhaohu from "./sdk"
+import { ZhaohuFrame } from "./sdk"
 
-const zhaohu = new Zhaohu()
 function DemoComponent() {
   const [inputs, setInputs] = useState({
     version: '',
     from: 'test',
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InJ1YXJ1YXJ1YSIsImZyb20iOiJ0ZXN0IiwiaWF0IjoxNTYwODI1Mjc3LCJleHAiOjE2MjM4OTcyNjV9.fHKbDJtHZJZhq0PI7e9jHsfxCuhEy3Wxf1BIj5egAtY',
     resume: JSON.stringify(resume),
-    env: 'mesoor'
+    env: 'mesoor',
   });
+
+  const [zhaohu, setZhaohu] = useState<ZhaohuFrame | undefined>(undefined)
+
+  const [open, setOpen] = useState(false)
 
   function handleInput(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setInputs({
@@ -20,18 +23,34 @@ function DemoComponent() {
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    zhaohu.remove()
-    zhaohu.init({
-      version: inputs.version ? inputs.version : undefined,
-      from: inputs.from,
-      token: inputs.token,
-      env: inputs.env,
-      basicInfoRequest() {
-        return Promise.resolve(JSON.parse(inputs.resume))
-      }
-    })
+    if (zhaohu) {
+      zhaohu.remove()
+      setZhaohu(undefined)
+    } else {
+      const newZhaohu = new ZhaohuFrame({
+        version: inputs.version ? inputs.version : undefined,
+        from: inputs.from,
+        token: inputs.token,
+        env: inputs.env,
+        basicInfoRequest() {
+          return Promise.resolve(JSON.parse(inputs.resume))
+        }
+      })
+
+      setZhaohu(newZhaohu)
+    }
 
     event.preventDefault()
+  }
+
+  function handleSwitch() {
+    if (!zhaohu) return
+    setOpen(!open)
+    if (!open) {
+      zhaohu.show()
+    } else {
+      zhaohu.hide()
+    }
   }
 
   return (
@@ -62,6 +81,11 @@ function DemoComponent() {
         <label><input type="radio" name="env" value="mesoor" checked={inputs.env === "mesoor"} onChange={handleInput}/>mesoor</label>
       </div>
       <button type="submit">召乎一下</button>
+      {
+        zhaohu ? 
+        (<button type="button" onClick={handleSwitch}>{open ? 'hide' : 'show'}</button>) : 
+        (undefined)
+      }
     </form>
   )
 }

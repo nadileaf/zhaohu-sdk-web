@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
 import FloatingButton from './FloatingButton'
 import { CSSTransition } from 'react-transition-group'
+import { cm2tn, InjectProps } from './utils'
 import './Inject.css'
-
-interface InjectProps {
-  token: string
-  from: string
-  channel: BroadcastChannel
-  version?: string
-  env?: string
-}
 
 const Inject: React.FC<InjectProps> = (props: InjectProps) => {
   const [open, setOpen] = useState(false)
@@ -55,17 +48,5 @@ const Inject: React.FC<InjectProps> = (props: InjectProps) => {
   )
 }
 
-function cm2tn (base: string) {
-  return {
-    appear: base + '-appear',
-    appearActive: base + '-active-appear',
-    enter: base + '-enter',
-    enterActive: base + '-active-enter',
-    enterDone: base + '-done-enter',
-    exit: base + '-exit',
-    exitActive: base + '-active-exit',
-    exitDone: base + '-done-exit',
-  }
-}
 
 export default Inject
