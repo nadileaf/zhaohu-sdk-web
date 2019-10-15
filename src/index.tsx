@@ -72,7 +72,7 @@ function DemoComponent() {
       </div>
       <div>
         <label>初始化简历:
-          <textarea name="resume" value={inputs.resume} onChange={handleInput} rows={30} cols={100}></textarea>
+          <textarea name="resume" value={inputs.resume} onChange={handleInput} rows={30} cols={50}></textarea>
         </label>
       </div>
       <div>

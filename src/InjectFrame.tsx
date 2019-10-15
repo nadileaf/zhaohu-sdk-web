@@ -10,10 +10,11 @@ interface InjectFrameProps {
   version?: string
   env?: string
   open: boolean
+  reload?: number
 }
 
 const InjectFrame: React.FC<InjectFrameProps> = (props: InjectFrameProps) => {
-  const url = `https://agora.${props.env || 'mesoor'}.com/?platform=web_sdk&token=${encodeURIComponent(props.token)}&from=${encodeURIComponent(props.from)}${props.version ? `&version=${props.version}` : ''}`
+  const url = `https://agora.${props.env || 'mesoor'}.com/?platform=web_sdk&token=${encodeURIComponent(props.token)}&from=${encodeURIComponent(props.from)}${props.version ? `&version=${props.version}` : ''}&reload=${props.reload || 0}`
   
   return (
     <CSSTransition

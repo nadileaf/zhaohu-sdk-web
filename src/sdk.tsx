@@ -81,6 +81,8 @@ export class ZhaohuFrame {
   private container: HTMLElement
   private env: string
   private param: InitParam
+  private shown: boolean = false
+  private reload_count: number = 0
   constructor (param: InitParam) {
     mustObject(param, 'param')
     notNull(param.token, 'param.token')
@@ -127,23 +129,29 @@ export class ZhaohuFrame {
   }
 
   show() {
-    ReactDOM.render(<InjectFrame
-      token={this.param.token}
-      from={this.param.from}
-      version={this.param.version}
-      env={this.env}
-      open={true}
-    />, this.container)
+    this.shown = true
+    this.render()
   }
 
   hide() {
+    this.shown = true
+    this.render()
+  }
+
+  reload() {
+    this.reload_count += 1
+    this.render()
+  }
+
+  render() {
     ReactDOM.render(<InjectFrame
       token={this.param.token}
       from={this.param.from}
       version={this.param.version}
       env={this.env}
-      open={false}
-    />, this.container)
+      open={this.shown}
+      reload={this.reload_count}
+    />, this.container)  
   }
 
   remove() {

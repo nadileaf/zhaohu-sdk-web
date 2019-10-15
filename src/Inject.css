@@ -46,6 +46,8 @@
   width: 100%;
   max-width: 512px;
   z-index: 10001;
+  border: none;
+  box-shadow: 0 0 20px #777;
 }
 
 #zhaohu .frame-enter {
