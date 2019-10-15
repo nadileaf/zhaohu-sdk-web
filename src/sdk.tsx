@@ -134,7 +134,7 @@ export class ZhaohuFrame {
   }
 
   hide() {
-    this.shown = true
+    this.shown = false
     this.render()
   }
 
