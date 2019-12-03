@@ -9,6 +9,7 @@ function DemoComponent() {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InJ1YXJ1YXJ1YSIsImZyb20iOiJ0ZXN0IiwiaWF0IjoxNTYwODI1Mjc3LCJleHAiOjE2MjM4OTcyNjV9.fHKbDJtHZJZhq0PI7e9jHsfxCuhEy3Wxf1BIj5egAtY',
     resume: JSON.stringify(resume),
     env: 'mesoor',
+    adJobId: 0,
   });
 
   const [zhaohu, setZhaohu] = useState<ZhaohuFrame | undefined>(undefined)
@@ -32,6 +33,7 @@ function DemoComponent() {
         from: inputs.from,
         token: inputs.token,
         env: inputs.env,
+        adJobId: inputs.adJobId,
         basicInfoRequest() {
           return Promise.resolve(JSON.parse(inputs.resume))
         }
@@ -76,14 +78,19 @@ function DemoComponent() {
         </label>
       </div>
       <div>
+        <label>品宣职位id:
+          <textarea name="adJobId" value={inputs.adJobId} onChange={handleInput}></textarea>
+        </label>
+      </div>
+      <div>
         环境:
         <label><input type="radio" name="env" value="nadileaf" checked={inputs.env === "nadileaf"} onChange={handleInput}/>nadileaf</label>
         <label><input type="radio" name="env" value="mesoor" checked={inputs.env === "mesoor"} onChange={handleInput}/>mesoor</label>
       </div>
       <button type="submit">召乎一下</button>
       {
-        zhaohu ? 
-        (<button type="button" onClick={handleSwitch}>{open ? 'hide' : 'show'}</button>) : 
+        zhaohu ?
+        (<button type="button" onClick={handleSwitch}>{open ? 'hide' : 'show'}</button>) :
         (undefined)
       }
     </form>

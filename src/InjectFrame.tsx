@@ -11,11 +11,12 @@ interface InjectFrameProps {
   env?: string
   open: boolean
   reload?: number
+  adJobId?: number
 }
 
 const InjectFrame: React.FC<InjectFrameProps> = (props: InjectFrameProps) => {
-  const url = `https://agora.${props.env || 'mesoor'}.com/?platform=web_sdk&token=${encodeURIComponent(props.token)}&from=${encodeURIComponent(props.from)}${props.version ? `&version=${props.version}` : ''}&reload=${props.reload || 0}`
-  
+  const url = `https://agora.${props.env || 'mesoor'}.com/?platform=web_sdk&token=${encodeURIComponent(props.token)}&from=${encodeURIComponent(props.from)}${props.version ? `&version=${props.version}` : ''}&reload=${props.reload || 0}&ad_job_id=${props.adJobId || 0}`
+
   return (
     <CSSTransition
       in={props.open}

@@ -4,7 +4,7 @@ import Inject from './Inject'
 import InjectFrame from './InjectFrame'
 
 declare global {
-  interface Window { 
+  interface Window {
     zhaohu: Zhaohu;
     ZhaohuFrame: typeof ZhaohuFrame;
   }
@@ -16,6 +16,7 @@ interface InitParam {
   version?: string
   env?: string
   hash?: string
+  adJobId?: number
   basicInfoRequest: () => Promise<any>
 }
 
@@ -89,7 +90,7 @@ export class ZhaohuFrame {
     notNull(param.from, 'param.from')
     notNull(param.basicInfoRequest, 'param.basicInfoRequest')
     this.param = param
-   
+
     this.env = param.env || 'mesoor'
 
     this.container = document.createElement('div')
@@ -118,13 +119,13 @@ export class ZhaohuFrame {
       }
       port.postMessage({ type: 'ACK' })
     })
-
     ReactDOM.render(<InjectFrame
       token={this.param.token}
       from={this.param.from}
       version={this.param.version}
       env={this.env}
       open={false}
+      adJobId={this.param.adJobId}
     />, this.container)
   }
 
@@ -151,7 +152,7 @@ export class ZhaohuFrame {
       env={this.env}
       open={this.shown}
       reload={this.reload_count}
-    />, this.container)  
+    />, this.container)
   }
 
   remove() {
