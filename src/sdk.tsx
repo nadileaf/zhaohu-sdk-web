@@ -152,6 +152,7 @@ export class ZhaohuFrame {
       env={this.env}
       open={this.shown}
       reload={this.reload_count}
+      adJobId={this.param.adJobId}
     />, this.container)
   }
 
