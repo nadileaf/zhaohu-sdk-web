@@ -17,6 +17,8 @@ interface InitParam {
   env?: string
   hash?: string
   adJobId?: number
+  chatId?: number
+  mode?: string
   basicInfoRequest: () => Promise<any>
 }
 
@@ -153,6 +155,8 @@ export class ZhaohuFrame {
       open={this.shown}
       reload={this.reload_count}
       adJobId={this.param.adJobId}
+      chatId={this.param.chatId}
+      mode={this.param.mode}
     />, this.container)
   }
 

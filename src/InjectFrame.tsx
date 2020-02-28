@@ -12,10 +12,36 @@ interface InjectFrameProps {
   open: boolean
   reload?: number
   adJobId?: number
+  mode?: string
+  chatId?: number
+}
+
+type UrlParams = {
+  platform: string
+  token: string
+  from: string
+  reload: number
+  version?: string
+  ad_job_id?: number
+  chat_id?: number
+  mode?: string
 }
 
 const InjectFrame: React.FC<InjectFrameProps> = (props: InjectFrameProps) => {
-  const url = `https://agora.${props.env || 'mesoor'}.com/?platform=web_sdk&token=${encodeURIComponent(props.token)}&from=${encodeURIComponent(props.from)}${props.version ? `&version=${props.version}` : ''}&reload=${props.reload || 0}&ad_job_id=${props.adJobId || 0}`
+  const host = `https://agora.${props.env || 'mesoor'}.com/`
+
+  const params: UrlParams = {
+    platform: 'web_sdk',
+    token: encodeURIComponent(props.token),
+    from: encodeURIComponent(props.from),
+    reload: props.reload || 0
+  }
+  if (props.version) params.version = props.version
+  if (props.adJobId) params.ad_job_id = props.adJobId
+  if (props.chatId) params.chat_id = props.chatId
+  if (props.mode) params.mode = props.mode
+
+  const url = host + '?' + Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&')
 
   return (
     <CSSTransition
