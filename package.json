@@ -72,7 +72,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "publish": "bash -c \"qshell dircache build cache.txt && qshell qupload2 --bucket homepage --src-dir build/ --file-list cache.txt --key-prefix agora/ --overwrite true --check-exists true --check-hash true --log-stdout=true && qshell cdnrefresh <(echo https://www.mesoor.com/agora/main.js$'\\n'https://www.mesoor.com/agora/sdk.js$'\\n'https://www.mesoor.com/agora/index.html)\""
+    "publish": "bash -c \"qshell dircache build -o cache.txt && qshell qupload2 --bucket homepage --src-dir build/ --file-list cache.txt --key-prefix agora/ --overwrite true --check-exists true --check-hash true && qshell cdnrefresh -i <(echo https://www.mesoor.com/agora/main.js$'\\n'https://www.mesoor.com/agora/sdk.js$'\\n'https://www.mesoor.com/agora/index.html)\""
   },
   "eslintConfig": {
     "extends": "react-app",
